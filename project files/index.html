@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GrainPalette - Rice Type Classifier</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='images/po.jpeg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    .upload-card {
+      background-color: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <h2>🌾 GrainPalette</h2>
+      </div>
+      <div class="nav-menu">
+        <a href="{{ url_for('index') }}" class="nav-link active">Home</a>
+        <a href="{{ url_for('about') }}" class="nav-link">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="hero-section">
+      <div class="container">
+        <h1 class="hero-title">Rice Type Classification</h1>
+        <p class="hero-subtitle">Upload an image of rice grains and discover their type using deep learning</p>
+        <div class="rice-types">
+          <div class="rice-type">Arborio</div>
+          <div class="rice-type">Basmati</div>
+          <div class="rice-type">Ipsala</div>
+          <div class="rice-type">Jasmine</div>
+          <div class="rice-type">Karacadag</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="upload-section">
+      <div class="container">
+        <div class="upload-card">
+          <h2>Upload Rice Image</h2>
+
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-error">
+                {% for message in messages %}
+                  <p>{{ message }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+
+          <form method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data" class="upload-form">
+            <div class="file-input-container">
+              <input type="file" id="file" name="file" accept=".png,.jpg,.jpeg,.gif" required class="file-input">
+              <label for="file" class="file-label">
+                <div class="file-icon">📁</div>
+                <div class="file-text">
+                  <span class="file-title">Choose Image</span>
+                  <span class="file-subtitle">PNG, JPG, JPEG, GIF (Max 16MB)</span>
+                </div>
+              </label>
+            </div>
+
+            <div class="preview-container" id="preview-container" style="display: none;">
+              <img id="preview-image" src="/placeholder.svg" alt="Preview" class="preview-image">
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <span>🔍 Classify Rice Type</span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-section">
+      <div class="container">
+        <h2>How It Works</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🖼️</div>
+            <h3>Upload Image</h3>
+            <p>Upload a clear image of rice grains</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>AI Analysis</h3>
+            <p>Our CNN model analyzes the grain characteristics</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Get Results</h3>
+            <p>Receive classification with confidence scores</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 GrainPalette. Deep Learning Rice Classification Project.</p>
+    </div>
+  </footer>
+
+  <script>
+    // File input preview
+    document.getElementById('file').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      const previewContainer = document.getElementById('preview-container');
+      const previewImage = document.getElementById('preview-image');
+      const fileLabel = document.querySelector('.file-label .file-title');
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImage.src = e.target.result;
+          previewContainer.style.display = 'block';
+          fileLabel.textContent = file.name;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewContainer.style.display = 'none';
+        fileLabel.textContent = 'Choose Image';
+      }
+    });
+  </script>
+</body>
+</html>
+

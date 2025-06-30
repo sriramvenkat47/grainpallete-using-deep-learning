@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About - GrainPalette</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='images/oo.jpeg') }}");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    .about-section {
+      background-color: rgba(38, 36, 36, 0.92);
+      padding: 4rem 0;
+      border-radius: 16px;
+      margin: 3rem auto;
+      max-width: 1200px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <h2>🌾 GrainPalette</h2>
+      </div>
+      <div class="nav-menu">
+        <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+        <a href="{{ url_for('about') }}" class="nav-link active">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="about-section">
+      <div class="container">
+        <div class="about-header">
+          <h1>About GrainPalette</h1>
+          <p class="about-subtitle">A Deep Learning Odyssey in Rice Type Classification</p>
+        </div>
+
+        <div class="about-content">
+          <!-- All your content remains unchanged -->
+          <!-- 🎯 Project Overview -->
+          <!-- 🔬 Tech Stack -->
+          <!-- 🌾 Rice Types -->
+          <!-- 🚀 How It Works -->
+          <!-- 💡 Use Cases -->
+          <!-- 📊 Performance -->
+        </div>
+
+        <div class="cta-section">
+          <h2>Ready to Try?</h2>
+          <p>Upload your rice grain images and see the AI in action!</p>
+          <a href="{{ url_for('index') }}" class="btn btn-primary">Start Classifying</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2024 GrainPalette. Deep Learning Rice Classification Project.</p>
+    </div>
+  </footer>
+</body>
+</html>

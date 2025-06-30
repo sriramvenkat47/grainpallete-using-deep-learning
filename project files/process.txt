@@ -1,0 +1,5 @@
+python -m venv riceenv
+.\riceenv\Scripts\activate
+pip install tensorflow==2.11.0 flask pillow numpy
+pip install jinja2
+python app.py
